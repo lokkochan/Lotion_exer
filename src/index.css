@@ -13,8 +13,19 @@ p {
 header{
   display: flex;
   flex-direction: row;
+  border-bottom: #ccc 1px solid;
+  flex:0;
+  height: 85px;
+}
+#show_all_notes{
+  background-color: white;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  height: 85px;
+  width: 85px;
 }
 #title{
+  display: flex;
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 0 1rem;
@@ -26,4 +37,31 @@ header{
 a {
   color: inherit;
   text-decoration: none;
+}
+#content{
+  display: flex;
+  flex-direction: row;
+  flex: 10%;
+  border-left: #ccc 1px solid;
+  height:max-content;
+}
+#notelist{
+  flex: 25%;
+  border-right: #ccc 1px solid;
+  height: max-content;
+}
+#note{
+  flex: 75%;
+}
+#notehead{
+  display: flex;
+  flex-direction: row;
+  border-bottom: #ccc 1px solid;
+}
+h3{
+  flex: 90%;
+  margin: 0 0 0 1rem;
+}
+.hidden{
+  width: 0px ;
 }
