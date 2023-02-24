@@ -19,7 +19,6 @@ function App() {
           <h3>Notes</h3>
           <Add_note/>
         </div>
-
       </div>
       <div id="note">
         note
