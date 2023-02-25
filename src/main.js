@@ -3,14 +3,16 @@ function Main() {
         <>
             <div id="note">
                 <div id="edit">
-                    <div id="date-title">
-                        <input type="text" id="note_title" placeholder="Title" autoFocus defaultValue={"Untitled"}/>
-                        <p id="buttons">
-                            <button id="Save">Save</button>
-                            <button id="Delete">Delete</button>
-                        </p>
+                    <div id="edit_top">
+                        <div id="date-title">
+                            <input type="text" id="note_title" placeholder="Title" autoFocus defaultValue={"Untitled"} />
+                            <input type="datetime-local" />
+                        </div>
+                        <div id="buttons">
+                                <button id="Save">Save</button>
+                                <button id="Delete">Delete</button>
+                        </div>
                     </div>
-                    <input type="datetime-local" />
                     <textarea id="note_content" placeholder="Your note here"></textarea>
                 </div>
             </div>

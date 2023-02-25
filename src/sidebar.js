@@ -1,4 +1,4 @@
-function Sidebar() {
+function Sidebar({ notes }) {
     return (
         <>
             <div id="notelist">
@@ -6,14 +6,18 @@ function Sidebar() {
                     <h3>Notes</h3>
                     <Add_note/>
                 </div>
+                <div id="all_notes">
+                    {notes.map((note) => (
+                        <div className="note">
+                            <div className="note_title">
+                                <h4>TITLE</h4>
+                                <small>last modified</small>
+                                <p>preview</p>
+                            </div>
+                        </div> 
+                    ))}
 
-                <div className="note">
-                    <div className="note_title">
-                        <h4>TITLE</h4>
-                        <small>last modified</small>
-                        <p>preview</p>
-                    </div>
-                </div> 
+                </div>
             </div>
         </>
     );

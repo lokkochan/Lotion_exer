@@ -15,14 +15,14 @@ header{
   flex-direction: row;
   border-bottom: #ccc 1px solid;
   flex:0;
-  height: 85px;
+  height: 50px;
 }
 #show_all_notes{
   background-color: white;
   border: 1px solid #ccc;
   border-bottom: none;
-  height: 85px;
-  width: 85px;
+  height: 50px;
+  width: 50px;
 }
 #title{
   display: flex;
@@ -33,6 +33,9 @@ header{
   align-items: center;
   justify-content: center;
   flex: 90%;
+}
+#head-title{
+  font-size: small;
 }
 a {
   color: inherit;
@@ -73,13 +76,25 @@ small{
   display: block;
   color: #999;
 }
-#date-title{
-  display: flex;
-}
 #buttons{
   justify-content: flex-end;
   flex: 10%;
+  align-self: right;
+  position: fixed;
+  right: 0;
 }
+
+#edit_top{
+  display: flex;
+  flex-direction: row;
+  border-bottom: #ccc 1px solid;
+}
+#date-title{
+  display: flex;
+  flex-direction: column;
+  flex:80%
+}
+
 #note_title{
-  flex: 85%;
+  width: 400px;
 }

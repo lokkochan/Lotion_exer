@@ -4,17 +4,20 @@ import Main from './main.js';
 import Sidebar from './sidebar.js';
 
 function App() {
+  const [notes, setNotes] = useState([]);
+
+
   return (
   <>
     <header>
       <Show_note/>
       <div id="title">
-        <h1>Lotion</h1>
-        <p>Like Notion, but worst</p>
+        <h4>Lotion</h4>
+        <p id="head-title">Like Notion, but worst</p>
       </div>
     </header>
     <main>
-      <Sidebar/>
+      <Sidebar notes={notes}/>    
       <Main/>
     </main>
   </>);
