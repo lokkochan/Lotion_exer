@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { Outlet } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
@@ -6,9 +6,13 @@ import uuid from 'react-uuid';
 
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
-
+  
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
+  
   const currentActiveNote = notes.find((note) => note.id === activeNote);
 
   const addClick=()=> {

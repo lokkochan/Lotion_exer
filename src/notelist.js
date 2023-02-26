@@ -1,5 +1,6 @@
 
 function Notelist({notes, addClick, activeNote, setActiveNote}) {
+    const sorted=notes.sort((a,b)=>b.notetime-a.notetime)
 
     return (
         <>
@@ -9,7 +10,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <button id="add_note" onClick={addClick}>+</button>
                 </div>
                 <div id="all_notes">
-                    {notes.map((note) => (
+                    {sorted.map((note) => (
                         <div className={`written_notes ${note.id===activeNote && "active"}`} onClick={() => setActiveNote(note.id)}>
                             <div className="written_note">
                                 <h4>{note.title}</h4>

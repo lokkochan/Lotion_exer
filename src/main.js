@@ -1,10 +1,14 @@
+import { Link } from "react-router-dom";
+
 function Main({activeNote, confirmDelete,editNote}) {
-    const editingNote = (id, value) => {
+    const editingNote = (title,body,notetime) => {
         editNote({
             ...activeNote,
-            [id]: value,
+            ["title"]:title,
+            ["body"]:body,
+            ["notetime"]:notetime,
         });
-    }
+    }    
 
     if (!activeNote) {
         return (
@@ -12,6 +16,9 @@ function Main({activeNote, confirmDelete,editNote}) {
         )
 
     }
+    let title = activeNote.title;
+    let body = activeNote.body;
+    let notetime = activeNote.notetime;
 
     return(
         <>
@@ -19,15 +26,15 @@ function Main({activeNote, confirmDelete,editNote}) {
                 <div id="edit">
                     <div id="edit_top">
                         <div id="date-title">
-                            <input type="text" id="note_title" defaultValue={activeNote.title} onChange={(e)=>editingNote("title", e.target.value)} autoFocus />
-                            <input type="datetime-local" value={activeNote.notetime} onChange={(e)=>editingNote("notetime", formatDate(e.target.value))} />
+                            <input type="text" id="note_title" defaultValue={title} onChange={(e)=>(title= e.target.value)} autoFocus />
+                            <input type="datetime-local" defaultValue={notetime} onChange={(e)=>(notetime= formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
-                            <button id="Save" >Save</button>
+                            <button id="Save" onClick={()=>editingNote(title,body,notetime)}>Save</button>
                             <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
-                    <textarea id="note_content" placeholder="Your note here" value={activeNote.body} onChange={(e)=>editingNote("body", e.target.value)}></textarea>
+                    <textarea id="note_content" placeholder="Your note here" defaultValue={body} onChange={(e)=>(body=e.target.value)}></textarea>
                 </div>
             </div>
         </>
