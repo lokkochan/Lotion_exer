@@ -1,9 +1,6 @@
 
 function Notelist({notes, addClick, activeNote, setActiveNote}) {
 
-    const editingNote = (id, value) => {
-    }
-
     return (
         <>
             <div id="notelist">

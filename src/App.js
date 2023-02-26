@@ -55,7 +55,7 @@ function App() {
     </header>
     <main>
       <Notelist notes={notes} addClick={addClick} activeNote={activeNote} setActiveNote={setActiveNote}/>    
-      <Main activeNote={currentActiveNote} confirmDelete={confirmDelete} />
+      <Main activeNote={currentActiveNote} confirmDelete={confirmDelete} editNote={editNote}/>
     </main>
   </>);
 }
