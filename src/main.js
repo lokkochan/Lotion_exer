@@ -1,19 +1,22 @@
-function Main() {
+function Main({activeNote, confirmDelete}) {
+    const editingNote = (id, value) => {
+        
+    }
     return(
         <>
             <div id="note">
                 <div id="edit">
                     <div id="edit_top">
                         <div id="date-title">
-                            <input type="text" id="note_title" placeholder="Title" autoFocus defaultValue={"Untitled"} />
+                            <input type="text" id="note_title" value={activeNote.title} onChange={(e)=>editingTitle("note_title", e.target.value)} autoFocus />
                             <input type="datetime-local" />
                         </div>
                         <div id="buttons">
-                                <button id="Save">Save</button>
-                                <button id="Delete">Delete</button>
+                            <button id="Save" >Save</button>
+                            <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
-                    <textarea id="note_content" placeholder="Your note here"></textarea>
+                    <textarea id="note_content" placeholder="Your note here" value={activeNote.body} onChange={(e)=>editingTitle("note_title", e.target.value)}></textarea>
                 </div>
             </div>
         </>

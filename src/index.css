@@ -98,3 +98,12 @@ small{
 #note_title{
   width: 400px;
 }
+
+.written_notes:hover {
+  background: #ddd;
+}
+.written_notes.active,
+.written_notes.active small {
+  background: black;
+  color: white;
+}
