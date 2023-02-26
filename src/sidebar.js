@@ -1,12 +1,11 @@
-import uuid from 'react-uuid';
 
-function Sidebar({ notes }) {
+function Sidebar({notes, addClick}) {
     return (
         <>
             <div id="notelist">
                 <div id="notehead">
                     <h3>Notes</h3>
-                    <Add_note/>
+                    <button id="add_note" onClick={addClick}>+</button>
                 </div>
                 <div id="all_notes">
                     {notes.map((note) => (
@@ -25,13 +24,3 @@ function Sidebar({ notes }) {
     );
 }
 export default Sidebar;
-
-
-function Add_note() {
-    function addClick() {
-
-    }
-    return (
-      <button id="add_note" onClick={addClick}>+</button>
-    );
-  }

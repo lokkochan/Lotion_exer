@@ -2,10 +2,20 @@ import {useState} from 'react';
 import { Outlet } from 'react-router-dom';
 import Main from './main.js';
 import Sidebar from './sidebar.js';
+import uuid from 'react-uuid';
 
 function App() {
   const [notes, setNotes] = useState([]);
 
+  const addClick=()=> {
+    const newNote = {
+        id: uuid(),
+        title: "Untitled",
+        body: "",
+        lastModified: Date.now(),
+    };
+    setNotes([newNote, ...notes]);
+}
 
   return (
   <>
@@ -17,7 +27,7 @@ function App() {
       </div>
     </header>
     <main>
-      <Sidebar notes={notes}/>    
+      <Sidebar notes={notes} addClick={addClick}/>    
       <Main/>
     </main>
   </>);
