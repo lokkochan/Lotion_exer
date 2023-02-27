@@ -1,13 +1,16 @@
 import {useEffect, useState, React} from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams, useNavigate } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
 import uuid from 'react-uuid';
 import ReactDOM from 'react-dom/client';
 import Main_read from './main_read.js';
 
- 
-function App() {
+
+function App(state) {
+  const {noteNum}=useParams();
+  console.log(noteNum);
+  console.log(state);
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
   
@@ -32,8 +35,8 @@ function App() {
     const answer = window.confirm("Are you sure?");
     if (answer) {
         DeleteNote(noteId);
-    }
-}
+      }
+  }
   const DeleteNote = (id) => {
     setNotes(notes.filter((note) => note.id !==id))
   };
@@ -48,7 +51,40 @@ function App() {
     );
     setNotes(updated);
   };
-
+  if (state.state === "none") {
+    return (
+      <>
+        <header>
+          <Show_note/>
+          <div id="title">
+            <h4>Lotion</h4>
+            <p id="head-title">Like Notion, but worst</p>
+          </div>
+        </header>
+        <main>
+          <Notelist notes={notes} addClick={addClick} activeNote={activeNote} setActiveNote={setActiveNote}/>    
+          <div id="note">
+            <div id="Blank">No note selected</div>
+          </div>
+        </main>
+      </>);
+  }
+  if (state.state === "read") {
+    return (
+      <>
+        <header>
+          <Show_note/>
+          <div id="title">
+            <h4>Lotion</h4>
+            <p id="head-title">Like Notion, but worst</p>
+          </div>
+        </header>
+        <main>
+          <Notelist notes={notes} addClick={addClick} activeNote={activeNote} setActiveNote={setActiveNote}/>    
+          <Main_read activeNote={currentActiveNote} confirmDelete={confirmDelete} />
+        </main>
+      </>);
+  }
   return (
   <>
     <header>

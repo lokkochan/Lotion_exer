@@ -1,21 +1,10 @@
 import ReactQuill from "react-quill";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
     const [value, setValue] = useState("");
-
-    const editingNote = (title, notetime) => {
-        let new_value= value.replace(/<[^>]+>/g, '');
-        editNote({
-            ...activeNote,
-            ["title"]:title,
-            ["body"]:new_value,
-            ["notetime"]:notetime,
-        });
-        console.log(new_value);
-    }    
 
     if (!activeNote) {
         return (
@@ -36,7 +25,7 @@ function Main({activeNote, confirmDelete,editNote}) {
                             <input type="datetime-local" defaultValue={notetime} onChange={(e)=>(notetime= formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
-                            <button id="Save" onClick={()=>editingNote(title,notetime)}>Save</button>
+                            <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} value={value}/>
                             <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
@@ -64,3 +53,25 @@ const formatDate = (when) => {
     }
     return formatted;
 };
+function SaveButton({editNote, activeNote, title,notetime,value}) {
+    const navigate = useNavigate();
+    
+    const editingNote = (editNote, activeNote ,title, notetime, value) => {
+        let new_value= value.replace(/<[^>]+>/g, '');
+        editNote({
+            ...activeNote,
+            ["title"]:title,
+            ["body"]:new_value,
+            ["notetime"]:notetime,
+        });
+        console.log(new_value);
+    }    
+    const handleEditClick = (editNote, activeNote, title, notetime,value) => {
+        editingNote(editNote, activeNote,title,notetime,value);
+        navigate("root/notes/:note");
+    };
+  
+    return (
+      <button id="edit" onClick={handleEditClick(editNote, activeNote, title, notetime,value)}>edit</button>
+    );
+  }
