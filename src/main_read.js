@@ -12,6 +12,7 @@ function Main_read({activeNote, confirmDelete}) {
     }
     let title = activeNote.title;
     let notetime = activeNote.notetime;
+    let id= activeNote.id;
 
     return(
         <>
@@ -26,7 +27,7 @@ function Main_read({activeNote, confirmDelete}) {
                         </div>
                         <div id="buttons">
                             <EditButton />
-                            <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
+                            <DeleteButton confirmDelete={confirmDelete} id={id} />
                         </div>
                     </div>
                     <div id="note_content">
@@ -55,6 +56,19 @@ const formatDate = (when) => {
     }
     return formatted;
 };
+
+function DeleteButton({confirmDelete, id}){
+    const navigate = useNavigate();
+
+    const handleDeleteClick = (confirmDelete,id) => {
+        confirmDelete(id);
+        navigate(-1);
+    };
+
+    return (
+        <button id="Delete" onClick={()=>handleDeleteClick(confirmDelete,id)}>Delete</button>
+    );
+}
 
 function EditButton() {
     const navigate = useNavigate();

@@ -13,8 +13,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/notes" element={<App state={"none"}/>} />
-        <Route path="/notes/:note" element={<App state={"read"}/>} />
-        <Route path="/notes/:note/edit"  element={<App state={"edit"}/>} />
+        <Route path="/notes/:noteNum" element={<App state={"read"}/>} />
+        <Route path="/notes/:noteNum/edit"  element={<App state={"edit"}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

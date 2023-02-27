@@ -10,7 +10,6 @@ import Main_read from './main_read.js';
 function App(state) {
   const {noteNum}=useParams();
   console.log(noteNum);
-  console.log(state);
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
   

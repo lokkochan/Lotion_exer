@@ -4,16 +4,18 @@ import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
-    const [value, setValue] = useState("");
-
+    const [body, setBody] = useState(activeNote.body);
+    const [title, setTitle] = useState(activeNote.title);
+    const [notetime, setNotetime] = useState(activeNote.notetime);
     if (!activeNote) {
         return (
             <div id="Blank">No note selected</div>
         )
-
     }
-    let title = activeNote.title;
-    let notetime = activeNote.notetime;
+
+    let prevtitle = activeNote.title;
+    let prevnotetime = activeNote.notetime;
+    let prevBody = activeNote.body;
 
     return(
         <>
@@ -21,15 +23,15 @@ function Main({activeNote, confirmDelete,editNote}) {
                 <div id="edit">
                     <div id="edit_top">
                         <div id="date-title">
-                            <input type="text" id="note_title" defaultValue={title} onChange={(e)=>(title= e.target.value)} autoFocus />
-                            <input type="datetime-local" defaultValue={notetime} onChange={(e)=>(notetime= formatDate(e.target.value))} />
+                            <input type="text" id="note_title" defaultValue={prevtitle} onChange={(e)=>setTitle(e.target.value)} autoFocus />
+                            <input type="datetime-local" defaultValue={prevnotetime} onChange={(e)=>setNotetime(formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
-                            <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} value={value}/>
+                            <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} body={body}/>
                             <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
-                    <ReactQuill id="note_content" placeholder="Your note here" value={value} onChange={setValue} />
+                    <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={setBody} />
                 </div>
             </div>
         </>
@@ -53,11 +55,12 @@ const formatDate = (when) => {
     }
     return formatted;
 };
-function SaveButton({editNote, activeNote, title,notetime,value}) {
+
+function SaveButton({editNote, activeNote, title,notetime,body}) {
     const navigate = useNavigate();
     
-    const editingNote = (editNote, activeNote ,title, notetime, value) => {
-        let new_value= value.replace(/<[^>]+>/g, '');
+    const editingNote = (editNote, activeNote ,title, notetime, body) => {
+        let new_value= body.replace(/<[^>]+>/g, '');
         editNote({
             ...activeNote,
             ["title"]:title,
@@ -66,12 +69,12 @@ function SaveButton({editNote, activeNote, title,notetime,value}) {
         });
         console.log(new_value);
     }    
-    const handleEditClick = (editNote, activeNote, title, notetime,value) => {
-        editingNote(editNote, activeNote,title,notetime,value);
-        navigate("root/notes/:note");
+    const handleEditClick = (editNote, activeNote, title, notetime,body) => {
+        editingNote(editNote, activeNote,title,notetime,body);
+        navigate(-1);
     };
   
     return (
-      <button id="edit" onClick={handleEditClick(editNote, activeNote, title, notetime,value)}>edit</button>
+      <button id="save" onClick={()=>handleEditClick(editNote, activeNote, title, notetime, body)}>Save</button>
     );
   }
