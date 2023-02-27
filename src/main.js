@@ -1,13 +1,20 @@
+import ReactQuill from "react-quill";
 import { Link } from "react-router-dom";
+import 'react-quill/dist/quill.snow.css';
+import { useEffect, useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
-    const editingNote = (title,body,notetime) => {
+    const [value, setValue] = useState("");
+
+    const editingNote = (title, notetime) => {
+        let new_value= value.replace(/<[^>]+>/g, '');
         editNote({
             ...activeNote,
             ["title"]:title,
-            ["body"]:body,
+            ["body"]:new_value,
             ["notetime"]:notetime,
         });
+        console.log(new_value);
     }    
 
     if (!activeNote) {
@@ -17,7 +24,6 @@ function Main({activeNote, confirmDelete,editNote}) {
 
     }
     let title = activeNote.title;
-    let body = activeNote.body;
     let notetime = activeNote.notetime;
 
     return(
@@ -30,16 +36,17 @@ function Main({activeNote, confirmDelete,editNote}) {
                             <input type="datetime-local" defaultValue={notetime} onChange={(e)=>(notetime= formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
-                            <button id="Save" onClick={()=>editingNote(title,body,notetime)}>Save</button>
+                            <button id="Save" onClick={()=>editingNote(title,notetime)}>Save</button>
                             <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
-                    <textarea id="note_content" placeholder="Your note here" defaultValue={body} onChange={(e)=>(body=e.target.value)}></textarea>
+                    <ReactQuill id="note_content" placeholder="Your note here" value={value} onChange={setValue} />
                 </div>
             </div>
         </>
     )
 }
+
 export default Main;
 
 const options = {

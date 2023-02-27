@@ -12,7 +12,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                 <div id="all_notes">
                     {sorted.map((note) => (
                         <div className={`written_notes ${note.id===activeNote && "active"}`} onClick={() => setActiveNote(note.id)}>
-                            <div className="written_note">
+                            <div className="written_note" id="NOTESTHING">
                                 <h4>{note.title}</h4>
                                 <small>{note.notetime}</small>
                                 <p>{note.body.substr(0,50) + "..."}</p>

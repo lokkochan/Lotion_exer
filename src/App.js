@@ -1,10 +1,12 @@
-import {useEffect, useState} from 'react';
-import { Outlet } from 'react-router-dom';
+import {useEffect, useState, React} from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
 import uuid from 'react-uuid';
+import ReactDOM from 'react-dom/client';
+import Main_read from './main_read.js';
 
-
+ 
 function App() {
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
@@ -46,7 +48,6 @@ function App() {
     );
     setNotes(updated);
   };
-
 
   return (
   <>
