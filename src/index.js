@@ -4,14 +4,17 @@ import './index.css';
 import Entrance from './entrance.js';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/notes" element={<App />} />
+        <Route path="/notes" element={<App state={"none"}/>} />
+        <Route path="/notes/:noteNum" element={<App state={"read"}/>} />
+        <Route path="/notes/:noteNum/edit"  element={<App state={"edit"}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
