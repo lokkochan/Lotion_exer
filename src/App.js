@@ -11,26 +11,47 @@ function App(state) {
   if (state=="redirect") {
     redirect("/notes");
   }
+  let sorted=false;
   const {noteNum}=useParams();
   console.log(noteNum);
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
-  
+
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
-  
-  const currentActiveNote = notes.find((note) => note.id === activeNote);
 
+  const reaarange = () => {
+    let i=1;
+    notes.map((note) => {
+      note.position=i;
+      i+=1;
+    });
+  }
+  reaarange();
+  const currentActiveNote = notes.find((note) => note.id === activeNote);
+  if (!currentActiveNote){
+    notes.map((note) => {
+      if (note.position==noteNum) {
+        setActiveNote(note.id);
+      }
+    });
+  }
   const addClick=()=> {
     const newNote = {
+        position:1,
         id: uuid(),
         title: "Untitled",
-        body: "",
+        body: '',
         notetime: formatDate(Date.now()),
     };
+    notes.map((note) => {
+      note.position+=1;
+    }
+    );
     setActiveNote(newNote.id);
     setNotes([newNote, ...notes]);
+    reaarange();
   }
 
   const confirmDelete = (noteId) => {
@@ -40,7 +61,8 @@ function App(state) {
       }
   }
   const DeleteNote = (id) => {
-    setNotes(notes.filter((note) => note.id !==id))
+    setNotes(notes.filter((note) => note.id !==id));
+    reaarange();
   };
 
   const editNote = (new_node) => {

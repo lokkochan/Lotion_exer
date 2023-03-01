@@ -13,6 +13,7 @@ function Main_read({activeNote, confirmDelete}) {
     let title = activeNote.title;
     let notetime = activeNote.notetime;
     let id= activeNote.id;
+    let body = activeNote.body.getHtml(); //replace(/(<([^>]+)>)/gi, "");
 
     return(
         <>
@@ -31,7 +32,7 @@ function Main_read({activeNote, confirmDelete}) {
                         </div>
                     </div>
                     <div id="note_content">
-                        <p>{activeNote.body}</p>
+                        <p>{body}</p>
                     </div>
                 </div>
             </div>

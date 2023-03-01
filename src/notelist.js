@@ -27,15 +27,16 @@ function ShowNote({note, activeNote, setActiveNote}){
 
     const clicked = (note,setActiveNote) => {
         setActiveNote(note.id);
-        navigate("/notes/" + note.id);
+        navigate("/notes/" + note.position);
     }
+    let body = note.body.replace(/(<([^>]+)>)/gi, "");
 
     return (
         <div className={`written_notes ${note.id===activeNote && "active"}`} onClick={() => clicked(note, setActiveNote)}>
             <div className="written_note" id="NOTESTHING">
                 <h4>{note.title}</h4>
                 <small>{note.notetime}</small>
-                <p>{note.body.substr(0,50) + "..."}</p>
+                <p>{body.substr(0,50) + "..."}</p>
             </div>
         </div> 
     );

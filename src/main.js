@@ -2,7 +2,6 @@ import ReactQuill from "react-quill";
 import { Link ,useNavigate} from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from "react";
-import parse from 'html-react-parser';
 
 function Main({activeNote, confirmDelete,editNote}) {
     const [body, setBody] = useState(activeNote.body);
@@ -17,7 +16,9 @@ function Main({activeNote, confirmDelete,editNote}) {
     let prevtitle = activeNote.title;
     let prevnotetime = activeNote.notetime;
     let prevBody = activeNote.body;
-
+    const saveBody= (editor) => {
+        setBody(editor);
+    }
     return(
         <>
             <div id="note">
@@ -32,7 +33,7 @@ function Main({activeNote, confirmDelete,editNote}) {
                             <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
                         </div>
                     </div>
-                    <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={setBody} />
+                    <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={saveBody} />
                 </div>
             </div>
         </>
@@ -61,15 +62,12 @@ function SaveButton({editNote, activeNote, title,notetime,body}) {
     const navigate = useNavigate();
     
     const editingNote = (editNote, activeNote ,title, notetime, body) => {
-        //let new_value = body.replace(/(<([^>]+)>)/gi, "");  
-        const new_value = body.replace(/<\/?[^>]+(>|$)/g, "");
         editNote({
             ...activeNote,
             ["title"]:title,
-            ["body"]:new_value,
+            ["body"]:body,
             ["notetime"]:notetime,
         });
-        console.log(new_value);
     }    
     const handleEditClick = (editNote, activeNote, title, notetime,body) => {
         editingNote(editNote, activeNote,title,notetime,body);
