@@ -1,20 +1,16 @@
-import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
-import { useEffect, useState } from "react";
 
 function Main_read({activeNote, confirmDelete}) {
     if (!activeNote) {
         return (
             <div id="Blank">No note selected</div>
         )
-
     }
     let title = activeNote.title;
     let notetime = activeNote.notetime;
     let id= activeNote.id;
-    let body = activeNote.body.getHtml(); //replace(/(<([^>]+)>)/gi, "");
-
+    
     return(
         <>
             <div id="note">
@@ -32,7 +28,7 @@ function Main_read({activeNote, confirmDelete}) {
                         </div>
                     </div>
                     <div id="note_content">
-                        <p>{body}</p>
+                        <div dangerouslySetInnerHTML={{ __html: activeNote.body }}></div>
                     </div>
                 </div>
             </div>

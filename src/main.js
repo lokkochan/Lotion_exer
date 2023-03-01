@@ -1,7 +1,7 @@
 import ReactQuill from "react-quill";
-import { Link ,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
     const [body, setBody] = useState(activeNote.body);

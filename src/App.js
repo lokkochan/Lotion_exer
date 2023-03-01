@@ -1,9 +1,8 @@
 import {useEffect, useState, React} from 'react';
-import { BrowserRouter, Route, Routes, useParams, useNavigate, redirect } from 'react-router-dom';
+import { useParams, redirect } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
 import uuid from 'react-uuid';
-import ReactDOM from 'react-dom/client';
 import Main_read from './main_read.js';
 
 
@@ -11,9 +10,9 @@ function App(state) {
   if (state=="redirect") {
     redirect("/notes");
   }
-  let sorted=false;
+
   const {noteNum}=useParams();
-  console.log(noteNum);
+
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
 
@@ -28,7 +27,9 @@ function App(state) {
       i+=1;
     });
   }
+
   reaarange();
+
   const currentActiveNote = notes.find((note) => note.id === activeNote);
   if (!currentActiveNote){
     notes.map((note) => {
@@ -37,6 +38,7 @@ function App(state) {
       }
     });
   }
+  
   const addClick=()=> {
     const newNote = {
         position:1,
@@ -75,6 +77,7 @@ function App(state) {
     );
     setNotes(updated);
   };
+
   if (state.state === "none") {
     return (
       <>
@@ -120,7 +123,7 @@ function App(state) {
     </header>
     <main>
       <Notelist notes={notes} addClick={addClick} activeNote={activeNote} setActiveNote={setActiveNote}/>    
-      <Main activeNote={currentActiveNote} confirmDelete={confirmDelete} editNote={editNote}/>
+      <Main activeNote={activeNote} confirmDelete={confirmDelete} editNote={editNote}/>
     </main>
   </>);
 }

@@ -1,4 +1,4 @@
-import { Link, useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Notelist({notes, addClick, activeNote, setActiveNote}) {
     const sorted=notes.sort((a,b)=>b.notetime-a.notetime);
