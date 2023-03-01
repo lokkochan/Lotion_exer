@@ -30,14 +30,14 @@ function App(state) {
 
   reaarange();
 
-  const currentActiveNote = notes.find((note) => note.id === activeNote);
-  if (!currentActiveNote){
+  if (!activeNote) {
     notes.map((note) => {
       if (note.position==noteNum) {
         setActiveNote(note.id);
       }
     });
   }
+  const currentActiveNote = notes.find((note) => note.id === activeNote);
   
   const addClick=()=> {
     const newNote = {
@@ -53,6 +53,7 @@ function App(state) {
     );
     setActiveNote(newNote.id);
     setNotes([newNote, ...notes]);
+
     reaarange();
   }
 
@@ -61,6 +62,7 @@ function App(state) {
     if (answer) {
         DeleteNote(noteId);
       }
+    return answer;
   }
   const DeleteNote = (id) => {
     setNotes(notes.filter((note) => note.id !==id));
@@ -123,7 +125,7 @@ function App(state) {
     </header>
     <main>
       <Notelist notes={notes} addClick={addClick} activeNote={activeNote} setActiveNote={setActiveNote}/>    
-      <Main activeNote={activeNote} confirmDelete={confirmDelete} editNote={editNote}/>
+      <Main activeNote={currentActiveNote} confirmDelete={confirmDelete} editNote={editNote}/>
     </main>
   </>);
 }
@@ -136,7 +138,7 @@ function Show_note() {
     notelist.classList.toggle("hidden");
   }
   return (
-    <button id="show_all_notes" onClick={show_Click}>&#9776;</button>
+    <button id="show_all_notes" class="Clickable" onClick={show_Click}>&#9776;</button>
   );
 }
 

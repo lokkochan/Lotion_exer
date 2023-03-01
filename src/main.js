@@ -16,9 +16,11 @@ function Main({activeNote, confirmDelete,editNote}) {
     let prevtitle = activeNote.title;
     let prevnotetime = activeNote.notetime;
     let prevBody = activeNote.body;
+    let id= activeNote.id;
     const saveBody= (editor) => {
         setBody(editor);
     }
+    //fix delete button
     return(
         <>
             <div id="note">
@@ -30,11 +32,11 @@ function Main({activeNote, confirmDelete,editNote}) {
                         </div>
                         <div id="buttons">
                             <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} body={body}/>
-                            <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
+                            <DeleteButton confirmDelete={confirmDelete} id={id} />
                         </div>
                     </div>
-                    <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={saveBody} />
                 </div>
+                <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={saveBody} />
             </div>
         </>
     )
@@ -57,11 +59,28 @@ const formatDate = (when) => {
     }
     return formatted;
 };
+function DeleteButton({confirmDelete, id}){
+    const navigate = useNavigate();
+
+    const handleDeleteClick = (confirmDelete,id) => {
+        let del=confirmDelete(id);
+        if (del){
+            navigate("../notes");  
+        }
+    };
+
+    return (
+        <button id="Delete" class="Clickable" onClick={()=>handleDeleteClick(confirmDelete,id)}>Delete</button>
+    );
+}
 
 function SaveButton({editNote, activeNote, title,notetime,body}) {
     const navigate = useNavigate();
     
     const editingNote = (editNote, activeNote ,title, notetime, body) => {
+        if (title === "") {
+            title = "Untitled";
+        }
         editNote({
             ...activeNote,
             ["title"]:title,
@@ -75,6 +94,6 @@ function SaveButton({editNote, activeNote, title,notetime,body}) {
     };
   
     return (
-      <button id="save" onClick={()=>handleEditClick(editNote, activeNote, title, notetime, body)}>Save</button>
+      <button id="save" class="Clickable" onClick={()=>handleEditClick(editNote, activeNote, title, notetime, body)}>Save</button>
     );
   }
