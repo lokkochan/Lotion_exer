@@ -1,5 +1,5 @@
 import {useEffect, useState, React} from 'react';
-import { BrowserRouter, Route, Routes, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams, useNavigate, redirect } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
 import uuid from 'react-uuid';
@@ -8,6 +8,9 @@ import Main_read from './main_read.js';
 
 
 function App(state) {
+  if (state=="redirect") {
+    redirect("/notes");
+  }
   const {noteNum}=useParams();
   console.log(noteNum);
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);

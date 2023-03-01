@@ -2,6 +2,7 @@ import ReactQuill from "react-quill";
 import { Link ,useNavigate} from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from "react";
+import parse from 'html-react-parser';
 
 function Main({activeNote, confirmDelete,editNote}) {
     const [body, setBody] = useState(activeNote.body);
@@ -60,7 +61,8 @@ function SaveButton({editNote, activeNote, title,notetime,body}) {
     const navigate = useNavigate();
     
     const editingNote = (editNote, activeNote ,title, notetime, body) => {
-        let new_value= body.replace(/<[^>]+>/g, '');
+        //let new_value = body.replace(/(<([^>]+)>)/gi, "");  
+        const new_value = body.replace(/<\/?[^>]+(>|$)/g, "");
         editNote({
             ...activeNote,
             ["title"]:title,
