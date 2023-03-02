@@ -10,7 +10,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <button id="add_note" class="Clickable" onClick={addClick}>+</button>
                 </div>
                 <div id="all_notes">
-                    <div id="NOTESTHING">
+                    <div id="NoNotes">
                         <h4>No notes yet</h4>
                     </div>
                 </div>

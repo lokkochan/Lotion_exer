@@ -4,9 +4,9 @@ import 'react-quill/dist/quill.snow.css';
 import { useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
-    const [body, setBody] = useState(activeNote.body);
-    const [title, setTitle] = useState(activeNote.title);
-    const [notetime, setNotetime] = useState(activeNote.notetime);
+    const [body, setBody] = useState(activeNote ? activeNote.body : "");
+    const [title, setTitle] = useState(activeNote ? activeNote.title : "");
+    const [notetime, setNotetime] = useState(activeNote ? activeNote.notetime : "");
     if (!activeNote) {
         return (
             <div id="Blank">No note selected</div>
@@ -28,7 +28,7 @@ function Main({activeNote, confirmDelete,editNote}) {
                     <div id="edit_top">
                         <div id="date-title">
                             <input type="text" id="note_title" defaultValue={prevtitle} onChange={(e)=>setTitle(e.target.value)} autoFocus />
-                            <input type="datetime-local" defaultValue={prevnotetime} onChange={(e)=>setNotetime(formatDate(e.target.value))} />
+                            <input type="datetime-local" id="note_title" defaultValue={prevnotetime} onChange={(e)=>setNotetime(formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
                             <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} body={body}/>

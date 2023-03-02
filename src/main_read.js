@@ -4,7 +4,9 @@ import 'react-quill/dist/quill.snow.css';
 function Main_read({activeNote, confirmDelete}) {
     if (!activeNote) {
         return (
-            <div id="Blank">No note selected</div>
+            <div id="note">
+                <div id="Blank">No note selected</div>
+            </div>
         )
     }
     let title = activeNote.title;
