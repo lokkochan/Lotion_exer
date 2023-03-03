@@ -26,10 +26,7 @@ header{
 }
 #show_all_notes{
   background-color: white;
-  border: 1px solid #ccc;
-  border-bottom: none;
-  border-left: none;
-  border-top:none ;
+  border: none;
   height: 50px;
   width: 50px;
 }
@@ -97,7 +94,6 @@ small{
 #add_note{
   background-color: white;
   border: none;
-  border-left: 1px solid #ccc;
   height: 25px;
   width: 25px;
 }
@@ -116,7 +112,6 @@ small{
 #save{
   background-color: white;
   border: none;
-  border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
 }
@@ -126,7 +121,6 @@ small{
 #Edit{
   background-color: white;
   border: none;
-  border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
 }
@@ -136,7 +130,6 @@ small{
 #Delete{
   background-color: white;
   border: none;
-  border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
 }
@@ -154,6 +147,8 @@ small{
   flex-direction: column;
   flex:50%;
   height: 50px;
+  border: none;
+  margin: 0 0 0 1rem;
 }
 
 #Blank{
