@@ -1,19 +1,18 @@
-import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
-import { useEffect, useState } from "react";
 
 function Main_read({activeNote, confirmDelete}) {
     if (!activeNote) {
         return (
-            <div id="Blank">No note selected</div>
+            <div id="note">
+                <div id="Blank">No note selected</div>
+            </div>
         )
-
     }
     let title = activeNote.title;
     let notetime = activeNote.notetime;
     let id= activeNote.id;
-
+    
     return(
         <>
             <div id="note">
@@ -21,7 +20,7 @@ function Main_read({activeNote, confirmDelete}) {
                     <div id="edit_top">
                         <div id="date-title">
                             <div>
-                                <h3>{title}</h3>
+                                <h3><strong>{title}</strong></h3>
                                 <small>{notetime}</small>
                             </div>
                         </div>
@@ -30,10 +29,10 @@ function Main_read({activeNote, confirmDelete}) {
                             <DeleteButton confirmDelete={confirmDelete} id={id} />
                         </div>
                     </div>
-                    <div id="note_content">
-                        <p>{activeNote.body}</p>
-                    </div>
                 </div>
+                <div id="note_content">
+                        <div dangerouslySetInnerHTML={{ __html: activeNote.body }}></div>
+                    </div>
             </div>
         </>
     )
@@ -61,12 +60,14 @@ function DeleteButton({confirmDelete, id}){
     const navigate = useNavigate();
 
     const handleDeleteClick = (confirmDelete,id) => {
-        confirmDelete(id);
-        navigate(-1);
+        let del=confirmDelete(id);
+        if (del){
+            navigate("../notes");  
+        }
     };
 
     return (
-        <button id="Delete" onClick={()=>handleDeleteClick(confirmDelete,id)}>Delete</button>
+        <button id="Delete" class="Clickable" onClick={()=>handleDeleteClick(confirmDelete,id)}>Delete</button>
     );
 }
 
@@ -78,6 +79,6 @@ function EditButton() {
     };
   
     return (
-      <button id="edit" onClick={handleEditClick}>edit</button>
+      <button id="Edit" class="Clickable" onClick={handleEditClick}>edit</button>
     );
   }

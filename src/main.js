@@ -1,12 +1,12 @@
 import ReactQuill from "react-quill";
-import { Link ,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import 'react-quill/dist/quill.snow.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Main({activeNote, confirmDelete,editNote}) {
-    const [body, setBody] = useState(activeNote.body);
-    const [title, setTitle] = useState(activeNote.title);
-    const [notetime, setNotetime] = useState(activeNote.notetime);
+    const [body, setBody] = useState(activeNote ? activeNote.body : "");
+    const [title, setTitle] = useState(activeNote ? activeNote.title : "");
+    const [notetime, setNotetime] = useState(activeNote ? activeNote.notetime : "");
     if (!activeNote) {
         return (
             <div id="Blank">No note selected</div>
@@ -16,7 +16,11 @@ function Main({activeNote, confirmDelete,editNote}) {
     let prevtitle = activeNote.title;
     let prevnotetime = activeNote.notetime;
     let prevBody = activeNote.body;
-
+    let id= activeNote.id;
+    const saveBody= (editor) => {
+        setBody(editor);
+    }
+    //fix delete button
     return(
         <>
             <div id="note">
@@ -24,15 +28,15 @@ function Main({activeNote, confirmDelete,editNote}) {
                     <div id="edit_top">
                         <div id="date-title">
                             <input type="text" id="note_title" defaultValue={prevtitle} onChange={(e)=>setTitle(e.target.value)} autoFocus />
-                            <input type="datetime-local" defaultValue={prevnotetime} onChange={(e)=>setNotetime(formatDate(e.target.value))} />
+                            <input type="datetime-local" id="note_title" defaultValue={prevnotetime} onChange={(e)=>setNotetime(formatDate(e.target.value))} />
                         </div>
                         <div id="buttons">
                             <SaveButton editNote={editNote} activeNote={activeNote} title={title} notetime={notetime} body={body}/>
-                            <button id="Delete" onClick={() => confirmDelete(activeNote.id)}>Delete</button>
+                            <DeleteButton confirmDelete={confirmDelete} id={id} />
                         </div>
                     </div>
-                    <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={setBody} />
                 </div>
+                <ReactQuill id="note_content" placeholder="Your note here" defaultValue={prevBody} onChange={saveBody} />
             </div>
         </>
     )
@@ -55,19 +59,34 @@ const formatDate = (when) => {
     }
     return formatted;
 };
+function DeleteButton({confirmDelete, id}){
+    const navigate = useNavigate();
+
+    const handleDeleteClick = (confirmDelete,id) => {
+        let del=confirmDelete(id);
+        if (del){
+            navigate("../notes");  
+        }
+    };
+
+    return (
+        <button id="Delete" class="Clickable" onClick={()=>handleDeleteClick(confirmDelete,id)}>Delete</button>
+    );
+}
 
 function SaveButton({editNote, activeNote, title,notetime,body}) {
     const navigate = useNavigate();
     
     const editingNote = (editNote, activeNote ,title, notetime, body) => {
-        let new_value= body.replace(/<[^>]+>/g, '');
+        if (title === "") {
+            title = "Untitled";
+        }
         editNote({
             ...activeNote,
             ["title"]:title,
-            ["body"]:new_value,
+            ["body"]:body,
             ["notetime"]:notetime,
         });
-        console.log(new_value);
     }    
     const handleEditClick = (editNote, activeNote, title, notetime,body) => {
         editingNote(editNote, activeNote,title,notetime,body);
@@ -75,6 +94,6 @@ function SaveButton({editNote, activeNote, title,notetime,body}) {
     };
   
     return (
-      <button id="save" onClick={()=>handleEditClick(editNote, activeNote, title, notetime, body)}>Save</button>
+      <button id="save" class="Clickable" onClick={()=>handleEditClick(editNote, activeNote, title, notetime, body)}>Save</button>
     );
   }

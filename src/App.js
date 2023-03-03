@@ -1,33 +1,60 @@
 import {useEffect, useState, React} from 'react';
-import { BrowserRouter, Route, Routes, useParams, useNavigate } from 'react-router-dom';
+import { useParams, redirect } from 'react-router-dom';
 import Main from './main.js';
 import Notelist from './notelist.js';
 import uuid from 'react-uuid';
-import ReactDOM from 'react-dom/client';
 import Main_read from './main_read.js';
 
 
 function App(state) {
+  if (state=="redirect") {
+    redirect("/notes");
+  }
+
   const {noteNum}=useParams();
-  console.log(noteNum);
+
   const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
   const [activeNote, setActiveNote] = useState(false);
-  
+
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
-  
-  const currentActiveNote = notes.find((note) => note.id === activeNote);
 
+  const reaarange = () => {
+    let i=1;
+    notes.map((note) => {
+      note.position=i;
+      i+=1;
+    });
+  }
+
+  reaarange();
+
+  if (!activeNote) {
+    notes.map((note) => {
+      if (note.position==noteNum) {
+        setActiveNote(note.id);
+      }
+    });
+  }
+  const currentActiveNote = notes.find((note) => note.id === activeNote);
+  
   const addClick=()=> {
     const newNote = {
+        position:1,
         id: uuid(),
         title: "Untitled",
-        body: "",
+        body: '',
         notetime: formatDate(Date.now()),
     };
+    notes.map((note) => {
+      note.position+=1;
+    }
+    );
     setActiveNote(newNote.id);
     setNotes([newNote, ...notes]);
+
+    reaarange();
   }
 
   const confirmDelete = (noteId) => {
@@ -35,9 +62,11 @@ function App(state) {
     if (answer) {
         DeleteNote(noteId);
       }
+    return answer;
   }
   const DeleteNote = (id) => {
-    setNotes(notes.filter((note) => note.id !==id))
+    setNotes(notes.filter((note) => note.id !==id));
+    reaarange();
   };
 
   const editNote = (new_node) => {
@@ -50,6 +79,7 @@ function App(state) {
     );
     setNotes(updated);
   };
+
   if (state.state === "none") {
     return (
       <>
@@ -108,7 +138,7 @@ function Show_note() {
     notelist.classList.toggle("hidden");
   }
   return (
-    <button id="show_all_notes" onClick={show_Click}>&#9776;</button>
+    <button id="show_all_notes" class="Clickable" onClick={show_Click}>&#9776;</button>
   );
 }
 
