@@ -79,6 +79,6 @@ function EditButton() {
     };
   
     return (
-      <button id="Edit" class="Clickable" onClick={handleEditClick}>edit</button>
+      <button id="Edit" class="Clickable" onClick={handleEditClick}>Edit</button>
     );
   }

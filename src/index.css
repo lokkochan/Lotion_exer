@@ -25,10 +25,16 @@ header{
   height: 50px;
 }
 #show_all_notes{
+  background-color: white;
   border: 1px solid #ccc;
   border-bottom: none;
+  border-left: none;
+  border-top:none ;
   height: 50px;
   width: 50px;
+}
+#show_all_notes:hover{
+  background-color: #423c52;
 }
 #title{
   display: flex;
@@ -89,10 +95,14 @@ small{
   color: #999;
 }
 #add_note{
+  background-color: white;
   border: none;
   border-left: 1px solid #ccc;
   height: 25px;
   width: 25px;
+}
+#add_note:hover{
+  background-color: #423c52;
 }
 #buttons{
   display: flex;
@@ -102,23 +112,36 @@ small{
   position: fixed;
   right: 0;
 }
+
 #save{
+  background-color: white;
   border: none;
   border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
+}
+#save:hover{
+  background-color: #423c52;
 }
 #Edit{
+  background-color: white;
   border: none;
   border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
 }
+#Edit:hover{
+  background-color: #423c52;
+}
 #Delete{
+  background-color: white;
   border: none;
   border-left: 1px solid #ccc;
   height: 50px;
   width: 50px;
+}
+#Delete:hover{
+  background-color: #423c52;
 }
 
 #edit_top{
@@ -174,7 +197,7 @@ small{
   color: white;
 }
 
-#Nonote{
+#NoNotes{
   font-size: large;
   color: #999;
   text-align: center;
