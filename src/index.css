@@ -181,6 +181,9 @@ small{
 
 .written_note{
   border-bottom: #999 1px solid;
+  border-right: none;
+  border-left: none;
+  padding: 0.5px;
 }
 .written_note:hover {
   background: #423c52;
