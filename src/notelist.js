@@ -13,6 +13,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <button id="add_note" class="Clickable" onClick={addClick}>+</button>
                 </div>
                 <div id="search">
+                    Search:
                     <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
                 </div>
                 <div id="all_notes">
@@ -31,6 +32,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <button id="add_note" class="Clickable" onClick={addClick}>+</button>
                 </div>
                 <div id="search">
+                    Search:
                     <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
                 </div>
                 <div id="all_notes">
@@ -50,6 +52,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <AddNote addClick={addClick} />
                 </div>
                 <div id="search">
+                    Search: 
                     <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
                 </div>
                 <div id="all_notes">
