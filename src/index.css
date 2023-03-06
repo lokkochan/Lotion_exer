@@ -162,6 +162,8 @@ small{
 
 #note_title{
   width: 400px;
+  border: none;
+  outline: none;
 }
 #note_content{
   flex-grow: 5;
