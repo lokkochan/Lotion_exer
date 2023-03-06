@@ -200,3 +200,12 @@ small{
   color: #999;
   text-align: center;
 }
+#search{
+  width: 100%;
+  border-bottom: #999 1px solid;
+}
+#Search{
+  background-color: white;
+  border: none;
+  width: 100px;
+}

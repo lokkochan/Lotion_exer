@@ -1,13 +1,19 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Notelist({notes, addClick, activeNote, setActiveNote}) {
+    const [SearchTerm, setSearchTerm] = useState("");
     const sorted=notes.sort((a,b)=>b.notetime-a.notetime);
+    const filteredNotes = filterNotes(sorted, SearchTerm);
     if (sorted.length==0) {
         return (
             <div id="notelist">
                 <div id="notehead">
                     <h3>Notes</h3>
                     <button id="add_note" class="Clickable" onClick={addClick}>+</button>
+                </div>
+                <div id="search">
+                    <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
                 </div>
                 <div id="all_notes">
                     <div id="NoNotes">
@@ -17,6 +23,25 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
             </div>
         );
     }
+    else if (filteredNotes.length==0) {
+        return (
+            <div id="notelist">
+                <div id="notehead">
+                    <h3>Notes</h3>
+                    <button id="add_note" class="Clickable" onClick={addClick}>+</button>
+                </div>
+                <div id="search">
+                    <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
+                </div>
+                <div id="all_notes">
+                    <div id="NoNotes">
+                        <h4>No search result</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
     return (
         <>
             <div id="notelist">
@@ -24,8 +49,11 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                     <h3>Notes</h3>
                     <AddNote addClick={addClick} />
                 </div>
+                <div id="search">
+                    <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
+                </div>
                 <div id="all_notes">
-                    {sorted.map((note) => (
+                    {filteredNotes.map((note) => (
                         <ShowNote note={note} activeNote={activeNote} setActiveNote={setActiveNote}/>
                     ))}
 
@@ -65,4 +93,15 @@ function AddNote({addClick}) {
     return (
         <button id="add_note" class="Clickable" onClick={()=>clicked(addClick)}>+</button>
         );
+}
+
+const filterNotes = (notes, query) => {
+    if (!query) {
+        return notes;
+    }
+    return notes.filter((note) => {
+        const noteTitle = note.title.toLowerCase();
+        const noteBody = note.body.toLowerCase();
+        return noteTitle.includes(query) || noteBody.includes(query);
+    });
 }
