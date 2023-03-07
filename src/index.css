@@ -210,4 +210,6 @@ small{
   background-color: white;
   border: none;
   width: 100px;
+  outline: none;
+  border: none;
 }

@@ -53,6 +53,7 @@ function Notelist({notes, addClick, activeNote, setActiveNote}) {
                 </div>
                 <div id="search">
                     Search: 
+                    Search:  
                     <input type="text" placeholder="Search" onChange={(e) => {setSearchTerm(e.target.value);}}/>
                 </div>
                 <div id="all_notes">
