@@ -7,13 +7,13 @@ import Main_read from './main_read.js';
 
 
 function App(state) {
-  if (state=="redirect") {
+  if (state==="redirect") {
     redirect("/notes");
   }
 
   const {noteNum}=useParams();
 
-  const [notes, setNotes] = useState(JSON.parse(localStorage.notes)||[]);
+  const [notes, setNotes] = useState(JSON.parse(localStorage.getItem("notes"))||[]);
   const [activeNote, setActiveNote] = useState(false);
 
   useEffect(() => {
